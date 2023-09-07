@@ -30,7 +30,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "app/api/webhook/clerk/route.ts"  ],
   "exclude": [
     "node_modules"
   ]

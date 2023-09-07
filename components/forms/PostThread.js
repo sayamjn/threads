@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { useOrganization } from "@clerk/nextjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { usePathname, useRouter } from "next/navigation";
-
 import {
   Form,
   FormControl,
@@ -41,6 +40,7 @@ function PostThread({ userId }) {
       communityId: organization ? organization.id : null,
       path: pathname,
     });
+
 
     router.push("/");
   };

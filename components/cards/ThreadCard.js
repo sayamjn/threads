@@ -119,6 +119,7 @@ function ThreadCard({
           </Link>
         </div>
       )}
+      
 
       {!isComment && community && (
         <Link
