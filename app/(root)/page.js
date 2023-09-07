@@ -21,7 +21,7 @@ async function Home({ searchParams }) {
 
   return (
     <>
-      <h1 className='head-text text-left'>Welcome to Threads</h1>
+      <h1 className='head-text text-center'>Welcome to Threads</h1>
 
       <section className='mt-9 flex flex-col gap-10'>
         {result.posts.length === 0 ? (
