@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 
 
+
 function CommunityCard({ id, name, username, imgUrl, bio, members }) {
   return (
     <article className='community-card'>

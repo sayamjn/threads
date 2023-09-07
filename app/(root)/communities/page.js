@@ -7,7 +7,6 @@ import CommunityCard from "../../../components/cards/CommunityCard";
 
 import { fetchUser } from "../../../lib/actions/user.actions";
 import { fetchCommunities } from "../../../lib/actions/community.actions";
-
 async function Page({
   searchParams,
 }) {
@@ -15,11 +14,11 @@ async function Page({
   if (!user) return null;
 
   const userInfo = await fetchUser(user.id);
-  if (!userInfo?.onboarded) redirect("/onboarding");
+  if (!userInfo || !userInfo.onboarded) redirect("/onboarding");
 
   const result = await fetchCommunities({
     searchString: searchParams.q,
-    pageNumber: searchParams?.page ? +searchParams.page : 1,
+    pageNumber: searchParams.page ? +searchParams.page : 1,
     pageSize: 25,
   });
 
@@ -53,7 +52,7 @@ async function Page({
 
       <Pagination
         path='communities'
-        pageNumber={searchParams?.page ? +searchParams.page : 1}
+        pageNumber={searchParams.page ? +searchParams.page : 1}
         isNext={result.isNext}
       />
     </>

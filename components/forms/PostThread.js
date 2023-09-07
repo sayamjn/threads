@@ -19,6 +19,7 @@ import { Textarea } from "../ui/textarea";
 import { ThreadValidation } from "../../lib/validations/thread";
 import { createThread } from "../../lib/actions/thread.actions";
 
+
 function PostThread({ userId }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -32,8 +33,8 @@ function PostThread({ userId }) {
       accountId: userId,
     },
   });
-
   const onSubmit = async (values) => {
+
     await createThread({
       text: values.thread,
       author: userId,

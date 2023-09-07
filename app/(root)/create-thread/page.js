@@ -10,12 +10,12 @@ async function Page() {
   // fetch organization list created by user
   const userInfo = await fetchUser(user.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
-  const ID = userInfo._id.toString(); // Convert to a string
+
   return (
     <>
       <h1 className='head-text'>Create Thread</h1>
 
-      <PostThread userId={ID} />
+      <PostThread userId={userInfo._id} />
     </>
   );
 }
