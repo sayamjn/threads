@@ -163,3 +163,47 @@
 .comment-form_btn {
   @apply rounded-3xl bg-primary-500 px-8 py-2 !text-small-regular text-light-1 max-xs:w-full !important;
 }
+
+.like-container {
+  display: flex;
+  align-items: center;
+}
+
+.like-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.like-button.liked {
+  color: #dc2626; /* Change color when liked */
+}
+
+.like-count {
+  font-size: 14px;
+  color: white;
+}
+
+
+.like-button,
+.dislike-button {
+  background-color: #3498db;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.like-button:hover,
+.dislike-button:hover {
+  background-color: #2980b9;
+}
+
+/* Like Count */
+.like-count {
+  font-size: 18px;
+  color: #555;
+  margin-left: 10px;
+}
