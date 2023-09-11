@@ -1,28 +1,53 @@
-// "use client"
 import Image from "next/image";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-
+import Follow from "../../../../components/shared/Follow";
 import { profileTabs } from "../../../../constants/index";
-
 import ThreadsTab from "../../../../components/shared/ThreadsTab";
-import ProfileHeader from '../../../../components/shared/ProfileHeader';
-
+import ProfileHeader from "../../../../components/shared/ProfileHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../../components/ui/tabs";
-
 import { fetchUser } from "../../../../lib/actions/user.actions";
 
 async function Page({ params }) {
-  const user = await currentUser();
-  if (!user) return null;
+  let user = null;
+  try {
+    user = await currentUser();
+  } catch (error) {
+    console.error("Error fetching current user:", error);
+  }
 
-  const userInfo = await fetchUser(params.id);
-  if (!userInfo?.onboarded) redirect("/onboarding");
+  if (!user) {
+    return (
+      <div>
+        <p>You are not authenticated.</p>
+      </div>
+    );
+  }
+
+  let userInfo = null;
+  try {
+    userInfo = await fetchUser(params.id);
+  } catch (error) {
+    console.error("Error fetching user information:", error);
+  }
+
+  if (!userInfo?.onboarded) {
+    redirect("/onboarding");
+    return null;
+  }
+
+  // Check if the user is viewing their own profile
+  const isOwnProfile = user.id === userInfo.id;
+
+  // Check if the user is already following the profile they are viewing
+  const isFollowing = isOwnProfile
+    ? false // If it's their own profile, don't show the Follow button
+    : user.following ? user.following.indexOf(userInfo.id) !== -1 : false;
 
   return (
     <section>
       <ProfileHeader
-        accountId={userInfo.id}
+        accountId={userInfo._id}
         authUserId={user.id}
         name={userInfo.name}
         username={userInfo.username}
@@ -30,8 +55,16 @@ async function Page({ params }) {
         bio={userInfo.bio}
       />
 
-      <div className='mt-9'>
-        <Tabs defaultValue='threads' className='w-full'>
+      {!isOwnProfile && ( // Render Follow button only if it's not their own profile
+        <Follow
+          initialIsFollowing={isFollowing}
+          accountId={userInfo._id}
+          authUserId={user.id}
+        />
+      )}
+
+      <div className="mt-9">
+        <Tabs defaultValue="threads" className="w-full">
           <TabsList className='tab'>
             {profileTabs.map((tab) => (
               <TabsTrigger key={tab.label} value={tab.value} className='tab'>
@@ -71,4 +104,5 @@ async function Page({ params }) {
     </section>
   );
 }
+
 export default Page;
