@@ -3,7 +3,7 @@ import Link from "next/link";
 import { formatDateString } from "../../lib/utils";
 import DeleteThread from "../forms/DeleteThread";
 import Like from "../shared/Like"; // Import the Like component
-
+import Share from "../shared/Share"
 function ThreadCard({
   id,
   currentUserId,
@@ -67,13 +67,12 @@ function ThreadCard({
                   height={24}
                   className="cursor-pointer object-contain"
                 />
-                <Image
-                  src="/assets/share.svg"
+              <Share src="/assets/share.svg"
                   alt="heart"
                   width={24}
                   height={24}
-                  className="cursor-pointer object-contain"
-                />
+                  className="cursor-pointer object-contain" key={likes} post={id} />
+
               </div>
 
               {isComment && comments.length > 0 && (
